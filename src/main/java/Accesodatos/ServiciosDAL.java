@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ServiciosDAL {
  
-    
+   
     
      public static int crear(Servicios servicio) {
         try (Connection conn = ComunDB.obtenerConexion()) {
@@ -40,7 +40,7 @@ public class ServiciosDAL {
      public static int modificar(Servicios servicio) {
         try (Connection conn = ComunDB.obtenerConexion()) {
 
-            String sql = "UPDATE Servicios SET Nombre=?, Descripcion=?, Precio=? WHERE ProductoID=?";
+            String sql = "UPDATE Servicios SET Nombre=?, Descripcion=?, Precio=? WHERE ServicioID=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, servicio.getNombre());
                 statement.setString(2, servicio.getDescripcion());
@@ -59,7 +59,7 @@ public class ServiciosDAL {
      public static int eliminar(Servicios servicio) {
         try (Connection conn = ComunDB.obtenerConexion()) {
 
-            String sql = "DELETE FROM Productos WHERE ProductoID=?";
+            String sql = "DELETE FROM Productos WHERE ServicioID=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setInt(1, servicio.getServiciosID());
                 int rowsAffected = statement.executeUpdate();
@@ -98,4 +98,27 @@ public class ServiciosDAL {
         return servicios;
     }
     
+         public static ArrayList<Servicios> obtenerTodos() {
+        ArrayList<Servicios> categorias = new ArrayList<>();
+        try (Connection conn = ComunDB.obtenerConexion()) {
+            String sql = "SELECT ServicioID, Nombre, Descripcion,Precio FROM Servicios";           
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {                              
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int servicioid = resultSet.getInt("ServicioID");
+                        String nombre = resultSet.getString("Nombre");
+                        String descripcion = resultSet.getString("Descripcion");   
+                        double Precio = resultSet.getDouble("Precio");
+                        Servicios servicio = new Servicios(servicioid,nombre,descripcion,Precio );
+                        categorias.add(servicio);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Error al obtener los servicios", e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
+        }
+        return categorias;
+    }
 }

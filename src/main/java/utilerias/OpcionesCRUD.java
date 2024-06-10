@@ -8,7 +8,7 @@ package utilerias;
  *
  * @author R5 8500G
  */
-public enum OperacionesCRUD {
+public enum OpcionesCRUD {
      CREAR,
     MODIFICAR,
     ELIMINAR

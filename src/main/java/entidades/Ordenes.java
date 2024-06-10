@@ -16,15 +16,26 @@ public class Ordenes {
     public int ServiciosID;
     public LocalDate Fecha;
     public double Monto;
+    
+    private Servicios servicios;
 
     public Ordenes() {
     }
 
-    public Ordenes(int OrderID, int ServiciosID, LocalDate Fecha, double Monto) {
+    public Ordenes(int OrderID, int ServiciosID, LocalDate Fecha, double Monto, Servicios servicios) {
         this.OrderID = OrderID;
         this.ServiciosID = ServiciosID;
         this.Fecha = Fecha;
         this.Monto = Monto;
+        this.servicios = servicios;
+    }
+
+    public Servicios getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(Servicios servicios) {
+        this.servicios = servicios;
     }
 
     
