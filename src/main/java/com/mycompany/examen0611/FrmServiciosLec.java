@@ -4,11 +4,20 @@
  */
 package com.mycompany.examen0611;
 
+import Accesodatos.ServiciosDAL;
+import entidades.Servicios;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utilerias.OpcionesCRUD;
+
 /**
  *
  * @author R5 8500G
  */
 public class FrmServiciosLec extends javax.swing.JFrame {
+
+        private OpcionesCRUD opcionCRUD;
 
     /**
      * Creates new form FrmServiciosLec
@@ -26,21 +35,186 @@ public class FrmServiciosLec extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jTextNombre = new javax.swing.JTextField();
+        jBtnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableServicios = new javax.swing.JTable();
+        jBtnEditar = new javax.swing.JButton();
+        jBtnEliminar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jBtnCrear = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Nombre");
+
+        jBtnBuscar.setText("Buscar");
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
+
+        jTableServicios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableServicios);
+
+        jBtnEditar.setText("Editar");
+        jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEditarActionPerformed(evt);
+            }
+        });
+
+        jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jBtnCrear.setText("ir a crear");
+        jBtnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCrearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnCrear))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnBuscar)
+                    .addComponent(jBtnCrear))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnEditar)
+                    .addComponent(jBtnEliminar)
+                    .addComponent(jButton3))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
+        // TODO add your handling code here:
+           opcionCRUD = OpcionesCRUD.CREAR;
+        FrmServiciosEsc frmServiciosEsc = new FrmServiciosEsc(opcionCRUD, new Servicios());
+        frmServiciosEsc.setTitle("Crear servicio");
+        frmServiciosEsc.setVisible(true);
+    }//GEN-LAST:event_jBtnCrearActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+              this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+        private Servicios obtenerDatos() {
+        Servicios servicio = new Servicios();
+        int row = jTableServicios.getSelectedRow();
+        servicio.setServiciosID((int) jTableServicios.getValueAt(row, 0));
+        servicio.setNombre(jTableServicios.getValueAt(row, 1).toString());
+        servicio.setDescripcion(jTableServicios.getValueAt(row, 2).toString());
+        servicio.setPrecio((double) jTableServicios.getValueAt(row, 3));
+        return servicio;
+    }
+    
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        // TODO add your handling code here:
+              int row = jTableServicios.getSelectedRow();
+        if (row != -1) {
+            opcionCRUD = OpcionesCRUD.ELIMINAR;
+            FrmServiciosEsc frmServiciosEsc = new FrmServiciosEsc(opcionCRUD, obtenerDatos());
+            frmServiciosEsc.setTitle("Eliminar servicio");
+            frmServiciosEsc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccionar una fila", "servicio",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnEliminarActionPerformed
+
+    private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
+        // TODO add your handling code here:
+         int row = jTableServicios.getSelectedRow();
+        if (row != -1) {
+            opcionCRUD = OpcionesCRUD.MODIFICAR;
+            FrmServiciosEsc frmServiciosEsc = new FrmServiciosEsc(opcionCRUD, obtenerDatos());
+            frmServiciosEsc.setTitle("Modificar servicio");
+            frmServiciosEsc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccionar una fila", "Servicio",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnEditarActionPerformed
+
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        // TODO add your handling code here:
+         Servicios servicio = new Servicios();
+        servicio.setNombre(jTextNombre.getText());
+        ArrayList<Servicios> servicios = ServiciosDAL.buscar(servicio);
+        String[] columnas = {"ID PRoducto", "Nombre", "Descripcion", "Precio","CategoriaID", "Categoria"};
+        Object[][] datos = new Object[servicios.size()][6];
+        for (int i = 0; i < servicios.size(); i++) {
+            Servicios item = servicios.get(i);
+            datos[i][0] = item.getServiciosID();
+            datos[i][1] = item.getNombre();
+            datos[i][2] = item.getDescripcion();
+            datos[i][3] = item.getPrecio();
+         
+        }
+        DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+        jTableServicios.setModel(modelTable);
+
+    }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +252,14 @@ public class FrmServiciosLec extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnBuscar;
+    private javax.swing.JButton jBtnCrear;
+    private javax.swing.JButton jBtnEditar;
+    private javax.swing.JButton jBtnEliminar;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableServicios;
+    private javax.swing.JTextField jTextNombre;
     // End of variables declaration//GEN-END:variables
 }
