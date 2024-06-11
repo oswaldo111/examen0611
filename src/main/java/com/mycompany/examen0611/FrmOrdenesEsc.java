@@ -165,8 +165,8 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
         jComboservicios = new javax.swing.JComboBox<>();
         jTextFecha = new javax.swing.JTextField();
         jTextMonto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBtnGuardar = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,17 +179,17 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
         jTextPane3.setText("Servicio");
         jScrollPane3.setViewportView(jTextPane3);
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnGuardarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnCancelarActionPerformed(evt);
             }
         });
 
@@ -212,9 +212,9 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
                             .addComponent(jTextMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jButton1)
+                        .addComponent(jBtnGuardar)
                         .addGap(41, 41, 41)
-                        .addComponent(jButton2)))
+                        .addComponent(jBtnCancelar)))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -234,8 +234,8 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
                     .addComponent(jComboservicios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtnGuardar)
+                    .addComponent(jBtnCancelar))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
@@ -244,7 +244,7 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
            if (null != opcionCRUD) // TODO add your handling code here:
             switch (opcionCRUD) {
                 case CREAR:
@@ -262,11 +262,11 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
                 default:
                     break;
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnGuardarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
                this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,8 +305,8 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnGuardar;
     private javax.swing.JComboBox<Servicios> jComboservicios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

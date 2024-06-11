@@ -4,17 +4,40 @@
  */
 package com.mycompany.examen0611;
 
+import Accesodatos.ServiciosDAL;
+import entidades.Servicios;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import utilerias.OpcionesCRUD;
+import static utilerias.OpcionesCRUD.CREAR;
+import static utilerias.OpcionesCRUD.ELIMINAR;
+import static utilerias.OpcionesCRUD.MODIFICAR;
+
 /**
  *
  * @author R5 8500G
  */
 public class FrmServiciosEsc extends javax.swing.JFrame {
 
+    private OpcionesCRUD opcionCRUD;
+    private Servicios servicioActual = new Servicios();
+    private HashMap<Integer, Servicios> mapCategorias = new HashMap<Integer,Servicios>();
+
+  
     /**
      * Creates new form FrmServicios
      */
-    public FrmServiciosEsc() {
+    public FrmServiciosEsc(OpcionesCRUD opcion, Servicios servicio) {
+        this.opcionCRUD = opcion;
         initComponents();
+       
+        if (opcion != OpcionesCRUD.CREAR) {
+            asingarDatos(servicio);
+            servicioActual = servicio;
+        }
+
     }
 
     /**
@@ -29,11 +52,11 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jtxtNombre = new javax.swing.JTextField();
+        jtxtDescripcion = new javax.swing.JTextField();
+        jtxtPrecio = new javax.swing.JTextField();
+        jBtnGuardar = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,9 +66,19 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
 
         jLabel3.setText("Precio");
 
-        jButton1.setText("Guardar");
+        jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,13 +94,13 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)))
+                            .addComponent(jtxtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                            .addComponent(jtxtDescripcion)
+                            .addComponent(jtxtPrecio)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jBtnGuardar)
                         .addGap(51, 51, 51)
-                        .addComponent(jButton2)))
+                        .addComponent(jBtnCancelar)))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,25 +109,131 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtnGuardar)
+                    .addComponent(jBtnCancelar))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        // TODO add your handling code here:
+             this.setVisible(false);
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
+        // TODO add your handling code here:
+          if (null != opcionCRUD) 
+            switch (opcionCRUD) {
+                case CREAR:
+                    crearReg();
+                    this.setVisible(false);
+                    break;
+                case MODIFICAR:
+                    modificarReg();
+                    this.setVisible(false);
+                    break;
+                case ELIMINAR:
+                    eliminarReg();
+                    this.setVisible(false);
+                    break;
+                default:
+                    break;
+            }
+        
+    }//GEN-LAST:event_jBtnGuardarActionPerformed
+
+     private Servicios obtenerDatos() {
+        Servicios servicio = new Servicios();
+        servicio.setNombre(jtxtNombre.getText());
+        servicio.setDescripcion(jtxtDescripcion.getText());
+        servicio.setPrecio(Double.parseDouble(jtxtPrecio.getText()));
+       
+        servicio.setServiciosID(servicioActual.getServiciosID());
+        return servicio;
+    }
+     
+      private void asingarDatos(Servicios servicio) {
+        jtxtNombre.setText(servicio.getNombre());
+        jtxtDescripcion.setText(servicio.getDescripcion());
+        jtxtPrecio.setText(Double.toString(servicio.getPrecio()));
+       
+    }
+      
+          private void crearReg() {
+        try {
+            Servicios servicio = obtenerDatos();
+            int result = ServiciosDAL.crear(servicio);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El servicio fue registrado existosamente", "CREAR SERVICIO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al crear el servicio", "ERROR SERVICIO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR SERVICIO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+          
+        private void modificarReg() {
+        try {
+            Servicios servicio = obtenerDatos();
+            int result = ServiciosDAL.modificar(servicio);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El servicio fue modificado existosamente", "MODIFICAR SERVICIO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al modificar el servicio", "ERROR SERVICIO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR SERVICIO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+        
+           private void eliminarReg() {
+        try {
+            Servicios servicio = obtenerDatos();
+            int result = ServiciosDAL.eliminar(servicio);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El servicio fue eliminado existosamente", "ELIMINAR SERVICIO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Sucedio un error al eliminar el servicio", "ERROR SERVICIO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "ERROR SERVICIO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -132,13 +271,13 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jtxtDescripcion;
+    private javax.swing.JTextField jtxtNombre;
+    private javax.swing.JTextField jtxtPrecio;
     // End of variables declaration//GEN-END:variables
 }

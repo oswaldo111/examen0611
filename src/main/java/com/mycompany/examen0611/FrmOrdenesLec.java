@@ -204,12 +204,12 @@ public class FrmOrdenesLec extends javax.swing.JFrame {
         String[] columnas = {"ID Orden", "Fecha", "Monto","ServicioID", "Servicio"};
         Object[][] datos = new Object[ordens.size()][6];
         for (int i = 0; i < ordens.size(); i++) {
-            Producto item = ordens.get(i);
+            Ordenes item = ordens.get(i);
             datos[i][0] = item.getOrderID();
             datos[i][1] = item.getFecha();
             datos[i][2] = item.getMonto();
             datos[i][3] = item.getServiciosID();
-             datos[i][4] = item.getServiciosID().getNombre();
+             datos[i][4] = item.getServicios().getNombre();
         }
         DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
         jTablaOrdenes.setModel(modelTable);
