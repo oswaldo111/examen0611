@@ -59,7 +59,7 @@ public class ServiciosDAL {
      public static int eliminar(Servicios servicio) {
         try (Connection conn = ComunDB.obtenerConexion()) {
 
-            String sql = "DELETE FROM Productos WHERE ServicioID=?";
+            String sql = "DELETE FROM Servicios WHERE ServicioID=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setInt(1, servicio.getServiciosID());
                 int rowsAffected = statement.executeUpdate();
@@ -75,8 +75,8 @@ public class ServiciosDAL {
        public static ArrayList<Servicios> buscar(Servicios ServiciosSearch) {
         ArrayList<Servicios> servicios = new ArrayList<>();
         try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "SELECT s.ServicioID, s.Nombre, s.Descripcion, s.Precio, c.Nombre AS NombreCat FROM Servicios s";
-            sql+=" WHERE p.Nombre LIKE ? ";
+            String sql = "SELECT s.ServicioID, s.Nombre, s.Descripcion, s.Precio FROM Servicios s";
+            sql+=" WHERE s.Nombre LIKE ? ";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, "%" + ServiciosSearch.getNombre() + "%");
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -101,7 +101,7 @@ public class ServiciosDAL {
          public static ArrayList<Servicios> obtenerTodos() {
         ArrayList<Servicios> categorias = new ArrayList<>();
         try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "SELECT ServicioID, Nombre, Descripcion,Precio FROM Servicios";           
+            String sql = "select ServicioID, Nombre, Descripcion, Precio form Servicios";           
             try (PreparedStatement statement = conn.prepareStatement(sql)) {                              
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {

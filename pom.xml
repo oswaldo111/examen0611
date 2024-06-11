@@ -10,7 +10,7 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>7.2.1.jre11</version>
-            <type>jar</type>
+          
         </dependency>
     </dependencies>
     <properties>

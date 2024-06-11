@@ -108,7 +108,7 @@ public class FrmServiciosLec extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnCrear))
@@ -201,7 +201,7 @@ public class FrmServiciosLec extends javax.swing.JFrame {
          Servicios servicio = new Servicios();
         servicio.setNombre(jTextNombre.getText());
         ArrayList<Servicios> servicios = ServiciosDAL.buscar(servicio);
-        String[] columnas = {"ID PRoducto", "Nombre", "Descripcion", "Precio","CategoriaID", "Categoria"};
+        String[] columnas = {"ServicioID", "Nombre", "Descripcion", "Precio"};
         Object[][] datos = new Object[servicios.size()][6];
         for (int i = 0; i < servicios.size(); i++) {
             Servicios item = servicios.get(i);

@@ -75,39 +75,42 @@ public class OrdenesDAL {
         }
     }
 
-    public static ArrayList<Ordenes> buscar(Ordenes ordenesSearch) {
-        ArrayList<Ordenes> Ordenes = new ArrayList<>();
-        try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "SELECT O.OrderID, O.ServicioID,  s.Nombre AS NombreSER,  O.Fecha, O.Monto  FROM Ordenes O";
-            sql += " INNER JOIN Servicios s ON s.ServicioID= O.ServicioID  ";
-            sql += " WHERE p.Nombre LIKE ? ";
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setString(1, "%" + ordenesSearch.getFecha() + "%");
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        Ordenes orden = new Ordenes();
-                        orden.setOrderID(resultSet.getInt("OrderID"));
+   public static ArrayList<Ordenes> buscar(Ordenes ordenesSearch) {
+    ArrayList<Ordenes> ordenes = new ArrayList<>();
+    try (Connection conn = ComunDB.obtenerConexion()) {
+        String sql = "SELECT O.OrderID, O.ServicioID, s.Nombre AS NombreSER, O.Fecha, O.Monto " +
+                     "FROM Ordenes O " +
+                     "INNER JOIN Servicios s ON s.ServicioID = O.ServicioID " +
+                     "WHERE O.Monto = ?;";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setDouble(1, ordenesSearch.getMonto());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Ordenes orden = new Ordenes();
+                    orden.setOrderID(resultSet.getInt("OrderID"));
+                    orden.setServiciosID(resultSet.getInt("ServicioID"));
 
-                        orden.setServiciosID(resultSet.getInt("ServicioID"));
-                        Servicios servicio = new Servicios();
-                        servicio.setNombre(resultSet.getString("NombreSER"));
-                        orden.setServicios(servicio);
+                    Servicios servicio = new Servicios();
+                    servicio.setNombre(resultSet.getString("NombreSER"));
+                    orden.setServicios(servicio);
 
-                        Date fechaSqlDate = resultSet.getDate("Fecha");
-                        LocalDate fechaLocalDate = fechaSqlDate.toLocalDate();
-                        orden.setFecha(fechaLocalDate);
+                    Date fechaSqlDate = resultSet.getDate("Fecha");
+                    LocalDate fechaLocalDate = fechaSqlDate.toLocalDate();
+                    orden.setFecha(fechaLocalDate);
 
-                        orden.setMonto(resultSet.getDouble("monto"));
+                    orden.setMonto(resultSet.getDouble("Monto"));
 
-                        Ordenes.add(orden);
-                    }
+                    ordenes.add(orden);
                 }
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al buscar las Ordenes", e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
+            throw new RuntimeException("Error al buscar las órdenes", e);
         }
-        return Ordenes;
+    } catch (SQLException e) {
+        throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
     }
+    return ordenes;
+}
+
+
 }

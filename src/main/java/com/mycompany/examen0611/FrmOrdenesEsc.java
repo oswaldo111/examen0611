@@ -25,6 +25,10 @@ import static utilerias.OpcionesCRUD.MODIFICAR;
  */
 public class FrmOrdenesEsc extends javax.swing.JFrame {
 
+    public FrmOrdenesEsc() {
+         initComponents();
+}
+
     /**
      * Creates new form FrmOrdenes
      */
@@ -34,6 +38,8 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmProductosEsc
+     * @param opcion
+     * @param ordenes
      */
     public FrmOrdenesEsc(OpcionesCRUD opcion, Ordenes ordenes) {
         this.opcionCRUD = opcion;
@@ -143,9 +149,7 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
         
         
 
-    public FrmOrdenesEsc() {
-        initComponents();
-    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -297,10 +301,8 @@ public class FrmOrdenesEsc extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmOrdenesEsc().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmOrdenesEsc().setVisible(true);
         });
     }
 
