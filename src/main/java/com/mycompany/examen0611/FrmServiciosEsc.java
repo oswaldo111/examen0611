@@ -23,7 +23,7 @@ public class FrmServiciosEsc extends javax.swing.JFrame {
 
     private OpcionesCRUD opcionCRUD;
     private Servicios servicioActual = new Servicios();
-    private HashMap<Integer, Servicios> mapCategorias = new HashMap<Integer,Servicios>();
+    private HashMap<Integer, Servicios> mapServicios = new HashMap<Integer,Servicios>();
 
   
     /**
