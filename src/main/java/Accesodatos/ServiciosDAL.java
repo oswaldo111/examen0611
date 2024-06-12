@@ -99,9 +99,9 @@ public class ServiciosDAL {
     }
     
          public static ArrayList<Servicios> obtenerTodos() {
-        ArrayList<Servicios> categorias = new ArrayList<>();
+        ArrayList<Servicios> servicios = new ArrayList<>();
         try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "select ServicioID, Nombre, Descripcion, Precio form Servicios";           
+            String sql = "select ServicioID, Nombre, Descripcion, Precio from Servicios";           
             try (PreparedStatement statement = conn.prepareStatement(sql)) {                              
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
@@ -110,7 +110,7 @@ public class ServiciosDAL {
                         String descripcion = resultSet.getString("Descripcion");   
                         double Precio = resultSet.getDouble("Precio");
                         Servicios servicio = new Servicios(servicioid,nombre,descripcion,Precio );
-                        categorias.add(servicio);
+                        servicios.add(servicio);
                     }
                 }
             } catch (SQLException e) {
@@ -119,6 +119,6 @@ public class ServiciosDAL {
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
         }
-        return categorias;
+        return servicios;
     }
 }
